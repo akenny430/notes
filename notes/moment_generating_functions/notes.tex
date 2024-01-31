@@ -1,0 +1,85 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath, amsfonts, bm}
+\usepackage[margin=1in]{geometry}
+
+\input{../../latex_inputs/math_commands.tex}
+
+\begin{document}
+
+\title{Notes: Moment Generating Functions}
+\author{Aiden Kenny}
+\maketitle
+
+\section{Introduction}
+
+[Fill out later]
+
+\section{Multiple random variables}
+
+Suppose we have a group of \( n \) independent random variables \( X_i \), \( i \in [n] \),
+which gives us
+\( \rVector{X} = [X_1, \ldots, X_n]^{\top} \).
+Each random variable also has a well-defined moment generating function \( M_{X_i}(t) \).
+
+\vspace*{2em}\noindent
+\textbf{Linear combinations}:
+Let
+\begin{align*}
+    S(\rVector{X})
+    = \beta_0 + \mVector{\beta}^\top \rVector{X}
+    = \beta_0 + \sum_{i=1}^n \beta_i X_i
+\end{align*}
+be a linear combination of the random variables in \( \rVector{X} \).
+Then it's moment generating function is given by
+\begin{align}
+    M_{S(\rVector{X})}(t)
+    = \mathrm{e}^{\beta_0} \prod_{i=1}^n M_{X_i}(\beta_i t).
+\end{align}
+The m.g.f. is given as
+\begin{align*}
+    M_{S(\rVector{X})}(t)
+    = \ev\Big[ \exp(t S) \Big]
+    % = \ev \left[ \exp \left( t \beta_0 + \sum_{i = 1}^n t \beta_i X_i \right) \right]
+    = \int_{\mathcal{D}_{S(\rVector{X})}}
+    \exp(t S)
+    \, f_{\rVector{X}}(\mVector{x})
+    \, \mathrm{d}\mVector{x}.
+\end{align*}
+Because it is exponentiation,
+we can write
+\begin{align*}
+    \exp(t S)
+    = \exp \left( t \beta_0 + \sum_{i = 1}^n t \beta_i X_i \right)
+    = \exp(t \beta_0) \prod_{i=1}^{n} \exp(t \beta_i X_i),
+\end{align*}
+and because each r.v. is independent, we can write
+\begin{align*}
+    f_{\rVector{X}}(\mVector{x})
+    = \prod_{i=1}^{n} f_{X_i}(x_i).
+\end{align*}
+Substituting these in and re-arranging gives
+\begin{align*}
+    M_{S(\rVector{X})}(t)
+    &= \int_{\mathcal{D}_{S(\rVector{X})}}
+    \exp(t S)
+    \, f_{\rVector{X}}(\mVector{x})
+    \, \mathrm{d}\mVector{x}
+    = \int_{\mathcal{D}_{X_1}} \cdots \int_{\mathcal{D}_{X_n}}
+    \exp(t \beta_0) \prod_{i=1}^{n} \exp(t \beta_i X_i)
+    \prod_{i=1}^{n} f_{X_i}(x_i)
+    \, \mathrm{d}x_1
+    \cdots
+    \, \mathrm{d}x_n \\
+    &= \exp(t \beta_0)
+    \prod_{i=1}^{n}
+    \int_{\mathcal{D}_{X_i}}
+    \exp(t \beta_i X_i)
+    f_{X_i}(x_i)
+    \, \mathrm{d}x_i
+    = \exp(t \beta_0)
+    \prod_{i=1}^{n}
+    M_{X_i}(t \beta_i).
+\end{align*}
+
+\end{document}
